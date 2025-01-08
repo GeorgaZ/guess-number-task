@@ -22,20 +22,21 @@ def game_core_v3(number: int = 1) -> int:
         int: _Число попыток
     """
     count = 0
-    max = 100
-    predict = max//2
+    predict = 50
     # условие не фиксирует какой должна быть старотовая точка угадывания,
     # поэтому я взял середину отрезка за точку старта
+    # на удивление, если поменять 50 на случайное число от 1 до 100,
+    # то среднее кол-во попыток все равно меньше 20
 
     if number == predict:
         count += 1  # проверяем попали ли мы сразу
         return count
 
-    if number > predict:
-        predict = round(predict*1.5)  # ограничеваем диапазон поиска четвертью
+    if number > predict:  # ограничеваем диапазон поиска половиной
+        predict = round(predict*1.5)
         count += 1
-        if number > predict:
-            predict += predict//6
+        if number > predict:  # ограничеваем диапазон поиска четвертью
+            predict += predict//6  # 1/8
             count += 1
         else:
             predict -= predict//6
